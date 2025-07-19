@@ -1,0 +1,114 @@
+
+
+.item_caixa {
+    /* position: static; */
+    /* position: absolute; */
+    /* position: relative; */
+    margin-top: 4px;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    /* width: 98%; */
+    min-height: 288px;
+    /* height: 20rem; */
+    /* height: 50%; */
+    border-color: black;
+    border: 2px solid black;
+    /* background-color: lightblue; */
+    border-radius: 32px;
+    /* box-sizing: border-box; */
+    left: 1%;
+    display: flex;
+    /* align-items: center; */
+    & > div {
+        flex: 1;
+        margin-left: 12px;
+    }
+
+}
+
+.item_titulo {
+    /* position: sticky; */
+    /* left: 252px; */
+    /* top: 0px; */
+    /* line-height: 20px; */
+    font-size: 24px;
+    /* text-align: center; */
+}
+
+.item_img_circulo {
+    /* position: relative; */
+    /* top: 20px; */
+    /* left: 12px; */
+    /* border: transparent; */
+    border: 1px solid black;
+    object-fit: scale-down;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    width: 240px; /* Defina a largura do círculo */
+    height: 240px; /* Defina a altura do círculo (deve ser igual à largura) */
+    border-radius: 50%; /* Arredonda as bordas para criar um círculo */
+    overflow: hidden; /* Oculta qualquer parte da imagem que exceda o círculo */
+    align-self: center;
+    margin-left: 12px;
+    /* margin-right: 20px; */
+    /* overflow: hidden; /* Esconde qualquer parte da imagem que exceda o círculo */
+    /* display: flex; /* Permite o alinhamento da imagem dentro do círculo */
+    /* justify-content: center; /* Centraliza horizontalmente a imagem */
+    /* align-items: center; /* Centraliza verticalmente a imagem */
+    /* background-image: url("mock da atividade de 2025-07-05.jpeg"); */
+    /* background-size: 929px 391px; /* Define o tamanho da imagem de background */
+    /* background-position: -67px -81px; /* Define a posição inicial da imagem */
+}
+
+.item_input_group {
+    margin-left: 4px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* .item_input_group > * {
+    font-size: 16px;
+    height: 40px;
+    margin: 5px;
+    vertical-align: center;
+} */
+
+.item_input_group label{
+    /* margin-top: 10px; */
+    text-align: center; 
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    /* height: 40px; */
+}
+
+button {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    /* height: 40px; */
+}
+
+button:hover {
+    background-color: rgb(240 248 255 / 100%);
+    cursor: pointer;
+}
+
+button:active {
+    /* text-shadow: 3px 3px 3px black; */
+    box-shadow:
+        inset -2px -2px 3px rgb(255 255 255 / 60%),
+        inset 2px 2px 3px rgb(0 0 0 / 60%);
+    /* cursor: pointer; */
+}
