@@ -88,7 +88,20 @@ input[type="text"] {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    /* height: 40px; */
+}
+
+input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="url"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
 button {
@@ -111,4 +124,42 @@ button:active {
         inset -2px -2px 3px rgb(255 255 255 / 60%),
         inset 2px 2px 3px rgb(0 0 0 / 60%);
     /* cursor: pointer; */
+}
+
+/* .item_cabecalho_principal {
+    display: flex;
+    flex-direction: column;
+    background-color: darkslategray;
+    color: white;
+    text-align: center;
+    height: 4rem;
+} */
+
+header {
+    background-color: darkslategray;
+    padding: 10px;
+    color: white;
+    text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+}
+
+aside {
+  width: 200px;
+  background-color: #eee;
+  padding: 10px;
+}
+
+main {
+  flex: 1;
+  padding: 10px;
 }
