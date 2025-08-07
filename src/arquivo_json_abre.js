@@ -42,16 +42,20 @@ function AbreJSON() {
 
   return (
     <>
-      <div className='item_input_group'>
-        <label htmlFor="meuInput">Código:</label>
-        <input
-          type="text"
-          placeholder="Digite o ID"
-          value={id}
-          id='meuInput'
-          onChange={(e) => setId(e.target.value)}
-        />
-        <button onClick={handleFiltrar}>Filtrar</button>
+      <div className='form_container'>
+      {/* <div className='item_input_group'> */}
+        <h2>Produto</h2>
+        <div className='item_input_group'>
+          <label htmlFor="meuInput">Código:</label>
+          <input
+            type="text"
+            placeholder="Digite o ID"
+            value={id}
+            id='meuInput'
+            onChange={(e) => setId(e.target.value)}
+          />
+          <button onClick={handleFiltrar}>Filtrar</button>
+        </div>
       </div>
       <div id="resultado">{resultado}</div>
     </>

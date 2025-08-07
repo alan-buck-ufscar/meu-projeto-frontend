@@ -56,8 +56,9 @@ function ProdutoNovo() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className='item_input_group'>
-                <div>
+            <div className='form_container'>
+                <h2>Produto Novo</h2>
+                <div className='form_group'>
                     <label htmlFor="id">ID:</label>
                     <input
                         type="text"
@@ -68,7 +69,7 @@ function ProdutoNovo() {
                         required
                     />
                 </div>
-                <div>
+                <div className='form_group'>
                     <label htmlFor="nome">Nome:</label>
                     <input
                         type="text"
@@ -79,7 +80,7 @@ function ProdutoNovo() {
                         required
                     />
                 </div>
-                <div>
+                <div className='form_group'>
                     <label htmlFor="descricao">Descrição:</label>
                     <textarea
                         id="descricao"
@@ -89,9 +90,10 @@ function ProdutoNovo() {
                         required
                     />
                 </div>
-                <div>
+                <div className='form_group'>
                     <label htmlFor="preco">Preço:</label>
                     <input
+                        className='.form_group textarea'
                         type="number"
                         id="preco"
                         name="preco"
@@ -100,23 +102,25 @@ function ProdutoNovo() {
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="categoria">Categoria:</label>
-                    <select
-                        id="categoria"
-                        name="categoria"
-                        value={produto.categoria}
-                        onChange={handleChange}
-                        required
-                    >
-                    <option value="">Selecione...</option>
-                    <option value="Celulares e Smartphones">Celulares e Smartphones</option>
-                    <option value="Eletrônicos">Eletrônicos</option>
-                    <option value="Livros">Livros</option>
-                    <option value="Roupas">Roupas</option>
-                    </select>
+                <div className='form_group'>
+                    <div className='form_group_textarea'>
+                        <label htmlFor="categoria">Categoria:</label>
+                        <select
+                            id="categoria"
+                            name="categoria"
+                            value={produto.categoria}
+                            onChange={handleChange}
+                            required
+                        >
+                        <option value="">Selecione...</option>
+                        <option value="Celulares e Smartphones">Celulares e Smartphones</option>
+                        <option value="Eletrônicos">Eletrônicos</option>
+                        <option value="Livros">Livros</option>
+                        <option value="Roupas">Roupas</option>
+                        </select>
+                    </div>
                 </div>
-                <div>
+                <div className='form_group'>
                     <label htmlFor="urlImagem">URL da Imagem:</label>
                     <input
                         type="url"
@@ -126,8 +130,10 @@ function ProdutoNovo() {
                         onChange={handleChange}
                     />
                 </div>
-                <button type="submit">Criar</button>
-                <button type="button" onClick={handleCancelar}>Cancelar</button>
+                <div className='form_group_buttons'>
+                    <button type="submit">Criar</button>
+                    <button type="button" onClick={handleCancelar}>Cancelar</button>
+                </div>
             </div>
         </form>
     );
