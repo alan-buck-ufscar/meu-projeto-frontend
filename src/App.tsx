@@ -1,41 +1,69 @@
-// import React from 'react';
 import './App.css';
-//import { AbreJSON } from './arquivo_json_abre';
-//import Header from './Header';
-//import Sidebar from './Sidebar';
 import Header from './components/Header';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-//import Layout from './Layout';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import "./css/styles.css";
 import Home from './components/Home';
 import Sobre from './components/Sobre';
 import RotaInvalida from './components/RotaInvalida';
 import ProdutoNovo from './components/ProdutoNovo';
 import Produto from './components/Produto';
-import DataRoute from './routes/dataRoute';
 import ProdutoComponent from './components/ProdutoComponent';
-// import DataRoute from './routes/dataRoute';
-// import ProdutoComponent from './components/ProdutoComponent';
+import ProdutoLoader from './routes/dataRoute';
 
-// const router = createBrowserRouter([
-//   DataRoute
-// ]);
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Header />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: 'sobre',
+        element: <Sobre />,
+      },
+      {
+        path: 'produto',
+        element: <Produto />,
+      },
+      {
+        path: 'produtos',
+        element: <ProdutoComponent />,
+        loader: ProdutoLoader,
+      },
+      {
+        path: 'produto_novo',
+        element: <ProdutoNovo />,
+      },
+      {
+        path: '*',
+        element: <RotaInvalida />,
+      }
+
+    ],
+  },
+]);
+
 
 function App() {
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={ <Header /> } >
-          <Route index element={ <Home /> }/>
-          <Route path='/produto' element={ <Produto /> }/>
-          <Route path='/produto_novo' element={ <ProdutoNovo /> }/>
-          <Route path='/sobre' element={ <Sobre /> }/>
-          <Route path='/produtos' element={ <ProdutoComponent /> } loader={ DataRoute } />
-          <Route path='*' element={ <RotaInvalida /> }/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
+
+    // <BrowserRouter>
+    //   <Routes>
+    //     <Route path='/' element={ <Header /> } >
+    //       <Route index element={ <Home /> }/>
+    //       <Route path='/produto' element={ <Produto /> }/>
+    //       <Route path='/produto_novo' element={ <ProdutoNovo /> }/>
+    //       <Route path='/sobre' element={ <Sobre /> }/>
+    //       {/* <Route path='/produtos' element={ <ProdutoComponent /> } loader={ DataRoute } /> */}
+    //       <Route path='/produtos' element={ <ProdutoComponent /> } loader={ loader } />
+    //       <Route path='*' element={ <RotaInvalida /> }/>
+    //     </Route>
+    //   </Routes>
+    // </BrowserRouter>
 
     /*
     const sidebarItems = ['Início', 'Produtos', 'Ajuda'];
