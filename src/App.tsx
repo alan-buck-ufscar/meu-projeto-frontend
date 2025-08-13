@@ -8,7 +8,8 @@ import RotaInvalida from './components/RotaInvalida';
 import ProdutoNovo from './components/ProdutoNovo';
 import Produto from './components/Produto';
 import ProdutoComponent from './components/ProdutoComponent';
-import ProdutoLoader from './routes/dataRoute';
+//import ProdutoLoader from './routes/dataRoute';
+import { ProdutoLoader, ProdutoCreator } from './routes/dataRoute';
 
 const router = createBrowserRouter([
   {
@@ -24,17 +25,19 @@ const router = createBrowserRouter([
         element: <Sobre />,
       },
       {
-        path: 'produto',
+        path: 'produto_antigo',
         element: <Produto />,
       },
       {
-        path: 'produtos',
+        path: 'produto',
         element: <ProdutoComponent />,
         loader: ProdutoLoader,
+        action: ProdutoCreator,
       },
       {
         path: 'produto_novo',
         element: <ProdutoNovo />,
+        // action: ProdutoCreator,
       },
       {
         path: '*',

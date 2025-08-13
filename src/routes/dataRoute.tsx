@@ -1,5 +1,6 @@
-import { LoaderFunction } from "react-router-dom";
+import { LoaderFunction, ActionFunction, useNavigate, redirect } from "react-router-dom";
 import dadosJSON from '../data.json'; // Importa o arquivo JSON
+//import Produto from "../components/Produto";
 
 interface Produto {
     id: number;
@@ -10,8 +11,12 @@ interface Produto {
     pictureUrl: string;
 }
 
+//let listaProdutos = dadosJSON;
+const listaProdutos: Produto[] = JSON.parse(JSON.stringify(dadosJSON));
+
+
 const ProdutoLoader: LoaderFunction = async () => {
-  return dadosJSON;
+  return listaProdutos;
   /*
   try {
     const response = await fetch('../data.json', {
@@ -35,8 +40,42 @@ const ProdutoLoader: LoaderFunction = async () => {
     */
 }
 
+//const ProdutoCreator: ActionFunction = async ( {request}: { request: Request }) => {
+const ProdutoCreator: ActionFunction = async ({ request }) => {
+  // const navigate = useNavigate();
+  const formData = await request.formData();
+  const produto: Produto = {
+    id: Number(formData.get('id')),
+    name: formData.get('nome') as string,
+    description: formData.get('descricao') as string,
+    price: Number(formData.get('preco')),
+    category: formData.get('categoria') as string,
+    pictureUrl: formData.get('urlImagem') as string
+  }
 
-export default ProdutoLoader;
+  listaProdutos.push(produto);
+  console.log('Produto criado:', produto);
+  // return navigate('/produto');
+  // return navigate('.');
+  // return produto;
+  // return redirect('/produto');
+  //return redirect('.');
+
+
+
+
+  // const formData = await request.formData();
+  // const itemName = formData.get('newItem');
+  // if (itemName) {
+  //   const newItem = { id: Date.now(), text: itemName };
+  //   initialItems = [...initialItems, newItem];
+  //   return { success: true, newItem };
+  // }
+  // return { success: false };
+
+}
+
+export { ProdutoLoader, ProdutoCreator };
 
 
 // async function itemsLoader() {

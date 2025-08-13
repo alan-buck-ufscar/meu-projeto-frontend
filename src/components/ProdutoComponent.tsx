@@ -1,4 +1,5 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useActionData } from 'react-router-dom';
+import { useState } from 'react';
 
 interface Produto {
     id: number;
@@ -9,28 +10,95 @@ interface Produto {
     pictureUrl: string;
 }
 
-// const ProdutoComponent: React.FC = () => {
 function ProdutoComponent() {
-  const data = useLoaderData() as Produto[];
+  const dados = useLoaderData() as Produto[];
+  const actionData = useActionData();
+  const [id, setId] = useState<any>('');
+  const [resultado, setResultado] = useState<any>('');
+  // const [exibePesquisa, setExibePesquisa] = useState<any>('');
+
+  const handleFiltrar = () => {
+    const itemFiltrado = dados.find(item => item.id === parseInt(id));
+    if (id === '') {  // Código em branco
+      setResultado(
+        <>
+        {dados.map(item => (
+          <div key={item.id} className='item_caixa'>
+            <img src={item.pictureUrl} alt='Imagem' className='item_img_circulo'></img>
+            <div>
+              <p className='item_titulo'>({item.id}) {item.name}</p>
+              <p>{item.category}</p>
+              <p>R${item.price}</p>
+            </div>
+          </div>
+        ))}
+        </>
+      );
+    } else if (itemFiltrado) {  // Código válido
+      setResultado(
+        <div key={itemFiltrado.id} className='item_caixa'>
+          <img src={itemFiltrado.pictureUrl} alt='Imagem' className='item_img_circulo'></img>
+          <div>
+            <p className='item_titulo'>({itemFiltrado.id}) {itemFiltrado.name}</p>
+            <p>{itemFiltrado.category}</p>
+            <p>R${itemFiltrado.price}</p>
+          </div>
+        </div>
+      );
+    } else {  // Código inválido
+      setResultado(null);
+    }
+  }
+
+  // const handleNovoProduto = () => {
+  //   setExibePesquisa(null);
+  // }
 
   return (
     <div>
-      {data ? (
-        <ul>
-          {data.map((item) => (
-            <div key={item.id}>
-              <p>ID: {item.id}</p>
-              <p>Nome: {item.name}</p>
-              <p>Descrição: {item.description}</p>
-              <p>Preço: {item.price}</p>
-              <p>Categoria: {item.category}</p>
-              <p>Imagem: {item.pictureUrl}</p>
-            </div>
-          ))}
-      </ul>
-    ) : (
-      <p>Carregando...</p>
-    )}
+      <div className='form_container'>
+        <h2>Produto</h2>
+        {actionData?.success && (
+          <p style={{ color: "green" }}>Item adicionado com sucesso!</p>
+        )}
+        {actionData?.error && (
+          <p style={{ color: "red" }}>{actionData.error}</p>
+        )}
+        {/* {actionData?.error && <p style={{ color: "red" }}>{actionData.error}</p>} */}
+        {/* <button onClick={handleNovoProduto}>Novo Produto</button> */}
+        {/* <div id="exibePesquisa">{exibePesquisa}</div> */}
+
+        <div className='item_input_group'>
+          <label htmlFor="meuInput">Código:</label>
+          <input
+            type="text"
+            placeholder="Digite o ID"
+            value={id}
+            id='meuInput'
+            onChange={(e) => setId(e.target.value)}
+          />
+          <button onClick={handleFiltrar}>Filtrar</button>
+        </div>
+        
+      </div>
+
+      {dados ? (
+        <div id="resultado">{resultado}</div>
+        // <ul>
+        //   {dados.map(item => (
+        //     <div key={item.id} className='item_caixa'>
+        //       <img src={item.pictureUrl} alt='Imagem' className='item_img_circulo'></img>
+        //       <div>
+        //         <p className='item_titulo'>({item.id}) {item.name}</p>
+        //         <p>{item.category}</p>
+        //         <p>R${item.price}</p>
+        //       </div>
+        //     </div>
+        //   ))}
+        // </ul>
+      ) : (
+        <p>Carregando...</p>
+      )}
     </div>
   );
 }

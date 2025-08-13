@@ -1,6 +1,7 @@
 import { useState } from 'react';
 // import { Link } from 'react-router';
-import { useNavigate } from 'react-router-dom';
+import { Form, useNavigate, useSubmit } from 'react-router-dom';
+
 // import dadosJSON from '../data.json'
 
 interface Produto {
@@ -15,6 +16,7 @@ interface Produto {
 // const ProdutoNovo: React.FC = () => {
 function ProdutoNovo() {
     const navigate = useNavigate();
+    const submit = useSubmit();
 
     const [produto, setProduto] = useState<Produto>({
         id: '',
@@ -33,12 +35,12 @@ function ProdutoNovo() {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Aqui você pode adicionar a lógica para salvar o produto,
-        // como enviar para uma API ou atualizar o estado.
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        // e.preventDefault();
+        // const formData = new FormData(e.currentTarget);
+        // submit(formData, { method: "post" });
         console.log('Produto a ser criado:', produto);
-        navigate('/produto');
+        // navigate('/produto');
     };
 
     const handleCancelar = () => {
@@ -55,7 +57,8 @@ function ProdutoNovo() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        // <Form method="post" onSubmit={handleSubmit} action="produto">
+        <Form method="post" action='/produto'>
             <div className='form_container'>
                 <h2>Produto Novo</h2>
                 <div className='form_group'>
@@ -135,7 +138,7 @@ function ProdutoNovo() {
                     <button type="button" onClick={handleCancelar}>Cancelar</button>
                 </div>
             </div>
-        </form>
+        </Form>
     );
 };
 
