@@ -1,63 +1,45 @@
 import { useState } from 'react';
-// import { Link } from 'react-router';
-import { Form, useNavigate, useSubmit } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 
-// import dadosJSON from '../data.json'
-
+/*
 interface Produto {
     id: string;
-    nome: string;
-    descricao: string;
-    preco: number;
-    categoria: string;
-    urlImagem: string;
+    name: string;
+    description: string;
+    price: number;
+    category: string;
+    pictureUrl: string;
 }
+*/
 
-// const ProdutoNovo: React.FC = () => {
-function ProdutoNovo() {
+export const ProdutoNovo: React.FC = () => {
+//function ProdutoNovo() {
     const navigate = useNavigate();
-    const submit = useSubmit();
 
     const [produto, setProduto] = useState<Produto>({
-        id: '',
-        nome: '',
-        descricao: '',
-        preco: 0,
-        categoria: '',
-        urlImagem: '',
+        id: 0,
+        name: '',
+        description: '',
+        price: 0,
+        category: '',
+        pictureUrl: '',
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setProduto((prevProduto) => ({
         ...prevProduto,
-        [name]: name === 'preco' ? parseFloat(value) : value,
+        [name]: name === 'price' ? parseFloat(value) : value,
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        // e.preventDefault();
-        // const formData = new FormData(e.currentTarget);
-        // submit(formData, { method: "post" });
-        console.log('Produto a ser criado:', produto);
-        // navigate('/produto');
-    };
-
-    const handleCancelar = () => {
-        // setProduto({
-        //     id: '',
-        //     nome: '',
-        //     descricao: '',
-        //     preco: 0,
-        //     categoria: '',
-        //     urlImagem: '',
-        // });
+    const handleCancelar = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         console.log('Formulário cancelado');
         navigate('/produto');
     };
 
     return (
-        // <Form method="post" onSubmit={handleSubmit} action="produto">
         <Form method="post" action='/produto'>
             <div className='form_container'>
                 <h2>Produto Novo</h2>
@@ -76,9 +58,9 @@ function ProdutoNovo() {
                     <label htmlFor="nome">Nome:</label>
                     <input
                         type="text"
-                        id="nome"
-                        name="nome"
-                        value={produto.nome}
+                        id="name"
+                        name="name"
+                        value={produto.name}
                         onChange={handleChange}
                         required
                     />
@@ -88,7 +70,7 @@ function ProdutoNovo() {
                     <textarea
                         id="descricao"
                         name="descricao"
-                        value={produto.descricao}
+                        value={produto.description}
                         onChange={handleChange}
                         required
                     />
@@ -100,7 +82,7 @@ function ProdutoNovo() {
                         type="number"
                         id="preco"
                         name="preco"
-                        value={produto.preco}
+                        value={produto.price}
                         onChange={handleChange}
                         required
                     />
@@ -111,7 +93,7 @@ function ProdutoNovo() {
                         <select
                             id="categoria"
                             name="categoria"
-                            value={produto.categoria}
+                            value={produto.category}
                             onChange={handleChange}
                             required
                         >
@@ -129,40 +111,17 @@ function ProdutoNovo() {
                         type="url"
                         id="urlImagem"
                         name="urlImagem"
-                        value={produto.urlImagem}
+                        value={produto.pictureUrl}
                         onChange={handleChange}
                     />
                 </div>
                 <div className='form_group_buttons'>
                     <button type="submit">Criar</button>
-                    <button type="button" onClick={handleCancelar}>Cancelar</button>
+                    <button type="button" onClick={evento => handleCancelar(evento)}>Cancelar</button>
                 </div>
             </div>
         </Form>
     );
 };
 
-export default ProdutoNovo;
-
-/*
-function ProdutoNovo () {
-    const [dados] = useState(dadosJSON);
-    const [id, setId] = useState('');
-    return (
-        <>
-            <label htmlFor="meuInput">Código:</label>
-            <input
-                type="text"
-                placeholder="Digite o ID"
-                value={id}
-                id='meuInput'
-                onChange={(e) => setId(e.target.value)}
-            />
-        </>
-    );
-}
-
-export default ProdutoNovo;
-
-*/
-
+//export default ProdutoNovo;

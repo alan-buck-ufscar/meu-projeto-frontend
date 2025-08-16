@@ -1,6 +1,7 @@
 import { useLoaderData, useActionData } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
+/*
 interface Produto {
     id: number;
     name: string;
@@ -9,17 +10,18 @@ interface Produto {
     category: string;
     pictureUrl: string;
 }
+*/
 
-function ProdutoComponent() {
+export const ProdutoComponent: React.FC = () => {
   const dados = useLoaderData() as Produto[];
   const actionData = useActionData();
-  const [id, setId] = useState<any>('');
+  const [id, setId] = useState<number>(0);
   const [resultado, setResultado] = useState<any>('');
-  // const [exibePesquisa, setExibePesquisa] = useState<any>('');
 
   const handleFiltrar = () => {
-    const itemFiltrado = dados.find(item => item.id === parseInt(id));
-    if (id === '') {  // Código em branco
+    console.log(dados);
+    const itemFiltrado = dados.find(item => item.id === id); /*item.id === parseInt(id));*/
+    if ((Number.isNaN(id)) || (id === 0)) {  // Código em branco
       setResultado(
         <>
         {dados.map(item => (
@@ -50,10 +52,6 @@ function ProdutoComponent() {
     }
   }
 
-  // const handleNovoProduto = () => {
-  //   setExibePesquisa(null);
-  // }
-
   return (
     <div>
       <div className='form_container'>
@@ -64,18 +62,15 @@ function ProdutoComponent() {
         {actionData?.error && (
           <p style={{ color: "red" }}>{actionData.error}</p>
         )}
-        {/* {actionData?.error && <p style={{ color: "red" }}>{actionData.error}</p>} */}
-        {/* <button onClick={handleNovoProduto}>Novo Produto</button> */}
-        {/* <div id="exibePesquisa">{exibePesquisa}</div> */}
 
         <div className='item_input_group'>
           <label htmlFor="meuInput">Código:</label>
           <input
-            type="text"
+            type="number"
             placeholder="Digite o ID"
             value={id}
             id='meuInput'
-            onChange={(e) => setId(e.target.value)}
+            onChange={(e) => setId(parseInt(e.target.value))}
           />
           <button onClick={handleFiltrar}>Filtrar</button>
         </div>
@@ -84,73 +79,9 @@ function ProdutoComponent() {
 
       {dados ? (
         <div id="resultado">{resultado}</div>
-        // <ul>
-        //   {dados.map(item => (
-        //     <div key={item.id} className='item_caixa'>
-        //       <img src={item.pictureUrl} alt='Imagem' className='item_img_circulo'></img>
-        //       <div>
-        //         <p className='item_titulo'>({item.id}) {item.name}</p>
-        //         <p>{item.category}</p>
-        //         <p>R${item.price}</p>
-        //       </div>
-        //     </div>
-        //   ))}
-        // </ul>
       ) : (
         <p>Carregando...</p>
       )}
     </div>
   );
 }
-
-
-// const DataDisplay: React.FC = () => {
-//   const data = useLoaderData() as Produto[];
-
-//   return (
-//     <div>
-//       <h2>Dados Carregados:</h2>
-//       <ul>
-//         {data.map((item) => (
-//           <li key={item.id}>
-//             <h3>{item.name}</h3>
-//             <p>{item.description}</p>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-
-// function DataLoader() {
-//   const data = useLoaderData();
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     if (data.error) {
-//       navigate('/erro', { state: { message: data.error } });
-//     }
-//   }, [data, navigate]);
-
-
-//   if (data.isLoading) {
-//     return <p>Carregando...</p>;
-//   }
-
-//   return (
-//     <div>
-//       <h1>Dados Carregados:</h1>
-//       <ul>
-//         {data.map((item) => (
-//           <li key={item.id}>
-//             <strong>{item.name}</strong>: {item.description}
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-
-
-export default ProdutoComponent;

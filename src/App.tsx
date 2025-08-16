@@ -5,9 +5,9 @@ import "./css/styles.css";
 import Home from './components/Home';
 import Sobre from './components/Sobre';
 import RotaInvalida from './components/RotaInvalida';
-import ProdutoNovo from './components/ProdutoNovo';
+import { ProdutoNovo } from './components/ProdutoNovo';
 import Produto from './components/Produto';
-import ProdutoComponent from './components/ProdutoComponent';
+import { ProdutoComponent } from './components/ProdutoComponent';
 //import ProdutoLoader from './routes/dataRoute';
 import { ProdutoLoader, ProdutoCreator } from './routes/dataRoute';
 
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     element: <Header />,
     children: [
       {
-        path: '/',
+        index: true,
         element: <Home />,
       },
       {
