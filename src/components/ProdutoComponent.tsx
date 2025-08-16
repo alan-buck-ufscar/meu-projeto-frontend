@@ -1,17 +1,6 @@
 import { useLoaderData, useActionData } from 'react-router-dom';
 import React, { useState } from 'react';
 
-/*
-interface Produto {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    category: string;
-    pictureUrl: string;
-}
-*/
-
 export const ProdutoComponent: React.FC = () => {
   const dados = useLoaderData() as Produto[];
   const actionData = useActionData();
@@ -20,7 +9,7 @@ export const ProdutoComponent: React.FC = () => {
 
   const handleFiltrar = () => {
     console.log(dados);
-    const itemFiltrado = dados.find(item => item.id === id); /*item.id === parseInt(id));*/
+    const itemFiltrado = dados.find(item => item.id === id);
     if ((Number.isNaN(id)) || (id === 0)) {  // Código em branco
       setResultado(
         <>
