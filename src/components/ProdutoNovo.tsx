@@ -15,9 +15,10 @@ export const ProdutoNovo: React.FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
+        console.log(name, value);
         setProduto((prevProduto) => ({
-        ...prevProduto,
-        [name]: name === 'price' ? parseFloat(value) : value,
+            ...prevProduto,
+            [name]: name === 'price' ? parseFloat(value) : value,
         }));
     };
 
@@ -34,7 +35,7 @@ export const ProdutoNovo: React.FC = () => {
                 <div className='form_group'>
                     <label htmlFor="id">ID:</label>
                     <input
-                        type="text"
+                        type="number"
                         id="id"
                         name="id"
                         value={produto.id}
@@ -43,7 +44,7 @@ export const ProdutoNovo: React.FC = () => {
                     />
                 </div>
                 <div className='form_group'>
-                    <label htmlFor="nome">Nome:</label>
+                    <label htmlFor="name">Nome:</label>
                     <input
                         type="text"
                         id="name"
@@ -54,51 +55,48 @@ export const ProdutoNovo: React.FC = () => {
                     />
                 </div>
                 <div className='form_group'>
-                    <label htmlFor="descricao">Descrição:</label>
+                    <label htmlFor="description">Descrição:</label>
                     <textarea
-                        id="descricao"
-                        name="descricao"
+                        id="description"
+                        name="description"
                         value={produto.description}
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className='form_group'>
-                    <label htmlFor="preco">Preço:</label>
+                    <label htmlFor="price">Preço:</label>
                     <input
-                        className='.form_group textarea'
                         type="number"
-                        id="preco"
-                        name="preco"
+                        id="price"
+                        name="price"
                         value={produto.price}
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className='form_group'>
-                    <div className='form_group_textarea'>
-                        <label htmlFor="categoria">Categoria:</label>
-                        <select
-                            id="categoria"
-                            name="categoria"
-                            value={produto.category}
-                            onChange={handleChange}
-                            required
-                        >
-                        <option value="">Selecione...</option>
-                        <option value="Celulares e Smartphones">Celulares e Smartphones</option>
-                        <option value="Eletrônicos">Eletrônicos</option>
-                        <option value="Livros">Livros</option>
-                        <option value="Roupas">Roupas</option>
-                        </select>
-                    </div>
+                    <label htmlFor="category">Categoria:</label>
+                    <select
+                        id="category"
+                        name="category"
+                        value={produto.category}
+                        onChange={handleChange}
+                        required
+                    >
+                    <option value="">Selecione...</option>
+                    <option value="Celulares e Smartphones">Celulares e Smartphones</option>
+                    <option value="Eletrônicos">Eletrônicos</option>
+                    <option value="Livros">Livros</option>
+                    <option value="Roupas">Roupas</option>
+                    </select>
                 </div>
                 <div className='form_group'>
-                    <label htmlFor="urlImagem">URL da Imagem:</label>
+                    <label htmlFor="pictureUrl">URL da Imagem:</label>
                     <input
                         type="url"
-                        id="urlImagem"
-                        name="urlImagem"
+                        id="pictureUrl"
+                        name="pictureUrl"
                         value={produto.pictureUrl}
                         onChange={handleChange}
                     />
@@ -111,5 +109,3 @@ export const ProdutoNovo: React.FC = () => {
         </Form>
     );
 };
-
-//export default ProdutoNovo;
