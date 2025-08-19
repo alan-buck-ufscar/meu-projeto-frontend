@@ -15,7 +15,6 @@ export const ProdutoNovo: React.FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        console.log(name, value);
         setProduto((prevProduto) => ({
             ...prevProduto,
             [name]: name === 'price' ? parseFloat(value) : value,
@@ -32,7 +31,7 @@ export const ProdutoNovo: React.FC = () => {
         <Form method="post" action='/produto'>
             <div className='form_container'>
                 <h2>Produto Novo</h2>
-                <div className='form_group'>
+                {/* <div className='form_group'>
                     <label htmlFor="id">ID:</label>
                     <input
                         type="number"
@@ -42,7 +41,7 @@ export const ProdutoNovo: React.FC = () => {
                         onChange={handleChange}
                         required
                     />
-                </div>
+                </div> */}
                 <div className='form_group'>
                     <label htmlFor="name">Nome:</label>
                     <input
@@ -85,10 +84,14 @@ export const ProdutoNovo: React.FC = () => {
                         required
                     >
                     <option value="">Selecione...</option>
-                    <option value="Celulares e Smartphones">Celulares e Smartphones</option>
-                    <option value="Eletrônicos">Eletrônicos</option>
+                    <option value="SaudeBeleza">Saúde e Beleza</option>
+                    <option value="Eletronicos">Eletrônicos</option>
+                    <option value="Brinquedos">Brinquedos</option>
+                    <option value="CasaDecoracao">Casa e Decoração</option>
+                    <option value="Moda">Moda</option>
+                    <option value="EsporteLazer">Esporte e Lazer</option>
                     <option value="Livros">Livros</option>
-                    <option value="Roupas">Roupas</option>
+                    <option value="Papelaria">Papelaria</option>
                     </select>
                 </div>
                 <div className='form_group'>

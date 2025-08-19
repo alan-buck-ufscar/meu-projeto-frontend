@@ -1,5 +1,5 @@
 import { useLoaderData, useActionData } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 export const ProdutoComponent: React.FC = () => {
   const dados = useLoaderData() as Produto[];
@@ -7,39 +7,49 @@ export const ProdutoComponent: React.FC = () => {
   const [id, setId] = useState<number>(0);
   const [resultado, setResultado] = useState<any>('');
 
-  const handleFiltrar = () => {
-    console.log(dados);
-    const itemFiltrado = dados.find(item => item.id === id);
-    if ((Number.isNaN(id)) || (id === 0)) {  // Código em branco
-      setResultado(
-        <>
-        {dados.map(item => (
-          <div key={item.id} className='item_caixa'>
-            <img src={item.pictureUrl} alt='Imagem' className='item_img_circulo'></img>
-            <div>
-              <p className='item_titulo'>({item.id}) {item.name}</p>
-              <p>{item.category}</p>
-              <p>R${item.price}</p>
-            </div>
-          </div>
-        ))}
-        </>
-      );
-    } else if (itemFiltrado) {  // Código válido
-      setResultado(
-        <div key={itemFiltrado.id} className='item_caixa'>
-          <img src={itemFiltrado.pictureUrl} alt='Imagem' className='item_img_circulo'></img>
-          <div>
-            <p className='item_titulo'>({itemFiltrado.id}) {itemFiltrado.name}</p>
-            <p>{itemFiltrado.category}</p>
-            <p>R${itemFiltrado.price}</p>
-          </div>
+  const exibirItem = (item: Produto) => {
+    return (
+      <div key={item.id} className='item_caixa'>
+        <img src={item.pictureUrl} alt='Imagem' className='item_img_circulo'></img>
+        <div>
+          <p className='item_titulo'>({item.id}) {item.name}</p>
+          <p>{item.category}</p>
+          <p>R${item.price}</p>
         </div>
-      );
-    } else {  // Código inválido
-      setResultado(null);
-    }
+      </div>
+    )
   }
+
+  const handleFiltrar = useCallback(() => {
+    if (dados) {
+      const itemFiltrado = dados.find(item => item.id === id);
+      if ((Number.isNaN(id)) || (id === 0)) {  // Código em branco
+        setResultado(
+          <>
+          {dados.map(item => (
+            exibirItem(item)
+          ))}
+          </>
+        );
+      } else if (itemFiltrado) {  // Código válido
+        setResultado(
+          exibirItem(itemFiltrado)
+        );
+      } else {  // Código inválido
+        setResultado(null);
+      }
+    } else {
+      <p>Carregando...</p>
+    }
+
+  },[dados, id]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      handleFiltrar();
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [id, handleFiltrar]);
 
   return (
     <div>
@@ -61,16 +71,10 @@ export const ProdutoComponent: React.FC = () => {
             id='meuInput'
             onChange={(e) => setId(parseInt(e.target.value))}
           />
-          <button onClick={handleFiltrar}>Filtrar</button>
+          {/* <button onClick={handleFiltrar}>Filtrar</button> */}
         </div>
-        
       </div>
-
-      {dados ? (
-        <div id="resultado">{resultado}</div>
-      ) : (
-        <p>Carregando...</p>
-      )}
+      <div id="resultado">{resultado}</div>
     </div>
   );
 }
