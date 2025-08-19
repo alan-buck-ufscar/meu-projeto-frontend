@@ -71,7 +71,6 @@ export const ProdutoComponent: React.FC = () => {
             id='meuInput'
             onChange={(e) => setId(parseInt(e.target.value))}
           />
-          {/* <button onClick={handleFiltrar}>Filtrar</button> */}
         </div>
       </div>
       <div id="resultado">{resultado}</div>
