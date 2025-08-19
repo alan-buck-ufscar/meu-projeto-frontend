@@ -31,17 +31,6 @@ export const ProdutoNovo: React.FC = () => {
         <Form method="post" action='/produto'>
             <div className='form_container'>
                 <h2>Produto Novo</h2>
-                {/* <div className='form_group'>
-                    <label htmlFor="id">ID:</label>
-                    <input
-                        type="number"
-                        id="id"
-                        name="id"
-                        value={produto.id}
-                        onChange={handleChange}
-                        required
-                    />
-                </div> */}
                 <div className='form_group'>
                     <label htmlFor="name">Nome:</label>
                     <input
