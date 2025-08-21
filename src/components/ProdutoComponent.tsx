@@ -1,10 +1,11 @@
-import { useLoaderData, useActionData } from 'react-router-dom';
+import { useLoaderData, useActionData } from 'react-router';
 import React, { useState, useEffect, useCallback } from 'react';
 
 export const ProdutoComponent: React.FC = () => {
   const dados = useLoaderData() as Produto[];
   const actionData = useActionData();
-  const [id, setId] = useState<number>(0);
+  //const [id, setId] = useState<number>(0);
+  const [id, setId] = useState('');
   const [resultado, setResultado] = useState<any>('');
 
   const exibirItem = (item: Produto) => {
@@ -22,8 +23,9 @@ export const ProdutoComponent: React.FC = () => {
 
   const handleFiltrar = useCallback(() => {
     if (dados) {
-      const itemFiltrado = dados.find(item => item.id === id);
-      if ((Number.isNaN(id)) || (id === 0)) {  // Código em branco
+      const itemFiltrado = dados.find(item => item.id == id);
+      //if ((Number.isNaN(id)) || (id === 0)) {  // Código em branco
+      if (id === '') {  // Código em branco
         setResultado(
           <>
           {dados.map(item => (
@@ -65,11 +67,11 @@ export const ProdutoComponent: React.FC = () => {
         <div className='item_input_group'>
           <label htmlFor="meuInput">Código:</label>
           <input
-            type="number"
-            placeholder="Digite o ID"
+            type='text'
+            placeholder='Digite o ID'
             value={id}
             id='meuInput'
-            onChange={(e) => setId(parseInt(e.target.value))}
+            onChange={(e) => setId(e.target.value)}
           />
         </div>
       </div>

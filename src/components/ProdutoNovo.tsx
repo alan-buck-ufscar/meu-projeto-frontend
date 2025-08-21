@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Form, useNavigate } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router';
 
 export const ProdutoNovo: React.FC = () => {
     const navigate = useNavigate();
 
     const [produto, setProduto] = useState<Produto>({
-        id: 0,
+        id: '',
         name: '',
         description: '',
         price: 0,

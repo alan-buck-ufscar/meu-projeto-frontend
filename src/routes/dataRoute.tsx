@@ -1,5 +1,4 @@
-import { LoaderFunction, ActionFunction } from "react-router-dom";
- import dadosJSON from '../data.json'; // Importa o arquivo JSON
+import { LoaderFunction, ActionFunction } from "react-router";
 import axios from "axios";
 
 const URL_BACKEND = 'http://localhost:3001/api/product';
