@@ -28,7 +28,7 @@ export const ProdutoNovo: React.FC = () => {
     };
 
     return (
-        <Form method="post" action='/produto'>
+        <Form method="POST" action='/produto'>
             <div className='form_container'>
                 <h2>Produto Novo</h2>
                 <div className='form_group'>

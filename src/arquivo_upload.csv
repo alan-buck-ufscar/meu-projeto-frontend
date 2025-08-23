@@ -1,0 +1,4 @@
+id,name,description,price,category,pictureUrl
+1,nome do item 1,descrição do item 1,123.4,categoria do item 1,https://url_do_item1.com
+2,nome do item 2,descrição do item 2,567.8,categoria do item 2,https://url_do_item2.com
+3,nome do item 3,descrição do item 3,901.2,categoria do item 3,https://url_do_item3.com

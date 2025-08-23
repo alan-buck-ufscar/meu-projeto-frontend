@@ -8,7 +8,8 @@ import RotaInvalida from './components/RotaInvalida';
 import { ProdutoNovo } from './components/ProdutoNovo';
 import Produto from './components/Produto';
 import { ProdutoComponent } from './components/ProdutoComponent';
-import { ProdutoLoader, ProdutoCreator } from './routes/dataRoute';
+import { ProdutoLoader, ProdutoAction } from './routes/dataRoute';
+import { EnviaCSV } from './components/EnviaCSV';
 
 const router = createBrowserRouter([
   {
@@ -31,17 +32,20 @@ const router = createBrowserRouter([
         path: 'produto',
         element: <ProdutoComponent />,
         loader: ProdutoLoader,
-        action: ProdutoCreator,
+        action: ProdutoAction,
       },
       {
         path: 'produto_novo',
         element: <ProdutoNovo />,
       },
       {
+        path: 'envia_csv',
+        element: <EnviaCSV />,
+      },
+      {
         path: '*',
         element: <RotaInvalida />,
       }
-
     ],
   },
 ]);

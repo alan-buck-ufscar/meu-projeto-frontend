@@ -1,29 +1,20 @@
 import { useLoaderData, useActionData } from 'react-router';
 import React, { useState, useEffect, useCallback } from 'react';
+import { ProdutoCartao } from './ProdutoCartao';
 
 export const ProdutoComponent: React.FC = () => {
   const dados = useLoaderData() as Produto[];
   const actionData = useActionData();
-  //const [id, setId] = useState<number>(0);
-  const [id, setId] = useState('');
+  const [id, setId] = useState<string>('');
   const [resultado, setResultado] = useState<any>('');
 
   const exibirItem = (item: Produto) => {
-    return (
-      <div key={item.id} className='item_caixa'>
-        <img src={item.pictureUrl} alt='Imagem' className='item_img_circulo'></img>
-        <div>
-          <p className='item_titulo'>({item.id}) {item.name}</p>
-          <p>{item.category}</p>
-          <p>R${item.price}</p>
-        </div>
-      </div>
-    )
+    return (ProdutoCartao(item));
   }
 
   const handleFiltrar = useCallback(() => {
     if (dados) {
-      const itemFiltrado = dados.find(item => item.id == id);
+      const itemFiltrado = dados.find(item => String(item.id) === String(id));
       //if ((Number.isNaN(id)) || (id === 0)) {  // Código em branco
       if (id === '') {  // Código em branco
         setResultado(

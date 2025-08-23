@@ -14,22 +14,34 @@ const ProdutoLoader: LoaderFunction = async () => {
   }
 }
 
-const ProdutoCreator: ActionFunction = async ({ request }) => {
+const ProdutoAction: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  try {
-    return await axios.post(URL_BACKEND, {
-      name: formData.get('name'),
-      description: formData.get('description'),
-      price: formData.get('price'),
-      category: formData.get('category'),
-      pictureUrl: formData.get('pictureUrl'),
-    });
-  }
-  catch (error) {
-    console.log(error);
-    alert(error);
+  const method = request.method;
+
+  if (method === 'POST') {
+    try {
+      return await axios.post(URL_BACKEND, {
+        name: formData.get('name'),
+        description: formData.get('description'),
+        price: formData.get('price'),
+        category: formData.get('category'),
+        pictureUrl: formData.get('pictureUrl'),
+      });
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  }  else if (method === 'DELETE') {
+    try {
+      const id = formData.get('id');
+      await axios.delete(`${URL_BACKEND}/${id}`);
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
   }
 }
 
-export { ProdutoLoader, ProdutoCreator };
+
+export { ProdutoLoader, ProdutoAction };
 

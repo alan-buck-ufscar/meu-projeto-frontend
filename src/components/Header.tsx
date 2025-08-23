@@ -13,6 +13,7 @@ function Header () {
               <Link to='/'>Home</Link><br></br>
               <Link to='/produto'>Produto</Link><br></br>
               <Link to='/produto_novo'>Produto Novo</Link><br></br>
+              <Link to='/envia_csv'>Envia CSV</Link><br></br>
               <Link to='/sobre'>Sobre</Link><br></br>
             </aside>
             <main>
