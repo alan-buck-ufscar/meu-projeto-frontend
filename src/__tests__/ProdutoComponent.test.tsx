@@ -58,6 +58,6 @@ describe('ProdutoComponent', () => {
     expect(listaProd).toHaveLength(1);
     expect(listaProd[0].nextElementSibling?.firstChild?.textContent).toBe('(1) Camiseta Básica');
     expect(listaProd[0].nextElementSibling?.children[1]?.textContent).toBe('Moda');
-    expect(listaProd[0].nextElementSibling?.lastChild?.textContent).toBe('R$49.9');
+    expect(listaProd[0].nextElementSibling?.children[2]?.textContent).toBe('R$49.9');
   });
 });
