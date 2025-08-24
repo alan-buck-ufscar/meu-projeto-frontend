@@ -8,10 +8,6 @@ export const ProdutoComponent: React.FC = () => {
   const [id, setId] = useState<string>('');
   const [resultado, setResultado] = useState<any>('');
 
-  const exibirItem = (item: Produto) => {
-    return (ProdutoCartao(item));
-  }
-
   const handleFiltrar = useCallback(() => {
     if (dados) {
       const itemFiltrado = dados.find(item => String(item.id) === String(id));
@@ -20,13 +16,13 @@ export const ProdutoComponent: React.FC = () => {
         setResultado(
           <>
           {dados.map(item => (
-            exibirItem(item)
+            ProdutoCartao(item)
           ))}
           </>
         );
       } else if (itemFiltrado) {  // Código válido
         setResultado(
-          exibirItem(itemFiltrado)
+          ProdutoCartao(itemFiltrado)
         );
       } else {  // Código inválido
         setResultado(null);

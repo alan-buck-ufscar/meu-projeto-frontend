@@ -36,28 +36,3 @@ export const ProdutoCartao = (item: Produto) => {
       </div>
     );
 }
-
-
-/*
-export const ProdutoCartao = (item: Produto) => {
-    return(
-      <div key={item.id} className='card'>
-        <img src={item.pictureUrl} alt='Imagem'></img>
-        <section>
-            <h1>({item.id}) {item.name}</h1>
-            <p>{item.category}</p>
-            <p>R${item.price}</p>
-            <div className='card-button-div'>
-                <button>Editar</button>
-                <button onClick={() => onClickExcluir()}>Excluir</button>
-            </div>
-        </section>
-        <dialog>
-            <p>Você quer mesmo excluir este produto? {item.id}</p>
-            <button onClick={() => deleteProduto(item.id)}>Sim</button>
-            <button onClick={() => closeDialog()}>Não</button>
-        </dialog>
-      </div>
-    );
-}
-*/

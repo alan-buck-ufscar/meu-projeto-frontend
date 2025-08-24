@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { usePapaParse } from 'react-papaparse';
 import { csvRowSchema } from '../validationSchema';
 import { ValidationError } from 'yup';
+import { ProdutoCartaoCSV } from './ProdutoCartaoCSV';
 
 // Define a interface para os resultados da validação
 interface ValidationResult {
@@ -11,11 +12,36 @@ interface ValidationResult {
     rowIndex: number;
 }
 
+function transformValidationResultsToProductList(validationResults: ValidationResult[]): Produto[] {
+    return validationResults.map((result: ValidationResult) => ({
+        id: result.row.id,
+        name: result.row.name,
+        description: result.row.description,
+        price: result.row.price,
+        category: result.row.category,
+        pictureUrl: result.row.pictureUrl
+    }));
+}
+
 export const EnviaCSV: React.FC = () => {
     const { readString } = usePapaParse();
     const [validationResults, setValidationResults] = useState<ValidationResult[]>([]);
     const [validationMessage, setValidationMessage] = useState<string>('');
+    const dados = transformValidationResultsToProductList(validationResults);
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
+    const handleItemSelect = (id: string, isSelected: boolean) => {
+        setSelectedItems(prevSelectedItems => {
+        if (isSelected) {
+            // Adiciona o ID se ele ainda não estiver no array
+            return [...prevSelectedItems, id];
+        } else {
+            // Remove o ID do array
+            return prevSelectedItems.filter(itemId => itemId !== id);
+        }
+        });
+    };
+    
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
@@ -73,52 +99,42 @@ export const EnviaCSV: React.FC = () => {
         }
     };
 
+    const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+        dados.map(item => (
+            console.log(selectedItems.includes(item.id)
+            )
+        ))
+    }
+
     return (
-        <div className='form_container'>
-            <h2>Enviar arquivo CSV</h2>
-            <input type="file" accept=".csv" onChange={handleFileChange} />
-
-            {validationMessage && <p>{validationMessage}</p>}
-
-            {validationResults.length > 0 && (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Linha</th>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Descrição</th>
-                            <th>Preço</th>
-                            <th>Categoria</th>
-                            <th>Imagem</th>
-                            <th>Erros</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {validationResults.map(result => (
-                        <tr key={result.rowIndex} style={{ backgroundColor: result.isValid ? '#d4edda' : '#f8d7da' }}>
-                            <td>{result.rowIndex}</td>
-                            <td>{result.row.id}</td>
-                            <td>{result.row.name}</td>
-                            <td>{result.row.description}</td>
-                            <td>{result.row.price}</td>
-                            <td>{result.row.category}</td>
-                            <td>{result.row.pictureUrl}</td>
-                            <td>{result.isValid ? 'Válido' : 'Inválido'}</td>
-                            <td>
-                            {result.errors.length > 0 && (
-                                <ul>
-                                    {result.errors.map((error, idx) => (
-                                        <li key={idx}>{error}</li>
-                                    ))}
-                                </ul>
-                            )}
-                            </td>
-                        </tr>
+        <>
+            <div className='form_container'>
+                <h2>Enviar arquivo CSV</h2>
+                <input className='item_input_group' type="file" accept=".csv" onChange={handleFileChange} />
+                <button
+                    disabled={validationResults.length === 0}
+                    onClick={handleSubmit}
+                >Enviar...</button>
+                {validationMessage && <p>{validationMessage}</p>}
+            </div>
+            <div>
+                {validationResults.length > 0 && (
+                    <>
+                        {dados.map(item => (
+                            <ProdutoCartaoCSV
+                                key={item.id}
+                                item={item}
+                                isSelected={selectedItems.includes(item.id)}
+                                onSelect={handleItemSelect}
+                            />
                         ))}
-                    </tbody>
-                </table>
-            )}
-        </div>
+                        <div className="selected-info">
+                            <h3>IDs Selecionados:</h3>
+                            <p>{selectedItems.join(', ')}</p>
+                        </div>
+                    </>
+                )}
+            </div>
+        </>
     );
 };
