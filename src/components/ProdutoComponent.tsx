@@ -1,12 +1,65 @@
-import { useLoaderData, useActionData } from 'react-router';
+import { useLoaderData, useActionData, useNavigate } from 'react-router';
 import React, { useState, useEffect, useCallback } from 'react';
-import { ProdutoCartao } from './ProdutoCartao';
+import { Form } from 'react-router';
+
+/*
+function closeDialog() {
+    const dialog = document.getElementsByTagName("dialog")[0];
+    dialog.close();
+};
+*/
 
 export const ProdutoComponent: React.FC = () => {
   const dados = useLoaderData() as Produto[];
   const actionData = useActionData();
+  const navigate = useNavigate();
   const [id, setId] = useState<string>('');
   const [resultado, setResultado] = useState<any>('');
+  const [idProdDelInt, setidProdDelInt] = useState<string>('');
+
+  const closeDialog = () => {
+      const dialog = document.getElementsByTagName("dialog")[0];
+      dialog.close();
+  };
+
+  const handleCancelar = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log('Exclusão cancelada');
+    closeDialog();
+  };
+
+  const handleExcluir = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    const dialog = document.getElementsByTagName("dialog")[0];
+    console.log(`Produto selecionado id: ${id}`);
+    setidProdDelInt(id);
+    dialog.showModal();
+  }
+
+  const handleEditar = useCallback((e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    console.log(`Id no ProdutoComponent: ${id}`)
+    navigate(`/produto_edita/${id}`);
+  }, [navigate]);
+
+  const ProdutoCartao = useCallback((item: Produto) => {
+    return(
+      <div key={item.id} className='item_caixa'>
+        <img src={item.pictureUrl} alt='Imagem' className='item_img_circulo'></img>
+        <div>
+            <p className='item_titulo'>({item.id}) {item.name}</p>
+            <p>{item.category}</p>
+            <p>R${item.price}</p>
+            <div className='button_div'>
+                {/* <Link to={`/itens/editar/${item.id}`}>
+                  <button>Editar</button>
+                </Link> */}
+
+                <button onClick={event => handleEditar(event, item.id)}>Editar</button>
+                <button className='button_excluir' id='botao_excluir' onClick={event => handleExcluir(event, item.id)}>Excluir</button>
+            </div>
+        </div>
+      </div>
+    );
+  }, [handleEditar]);
 
   const handleFiltrar = useCallback(() => {
     if (dados) {
@@ -28,10 +81,10 @@ export const ProdutoComponent: React.FC = () => {
         setResultado(null);
       }
     } else {
-      <p>Carregando...</p>
+      setResultado(<p>Carregando...</p>);
     }
 
-  },[dados, id]);
+  },[dados, id, ProdutoCartao]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -63,6 +116,14 @@ export const ProdutoComponent: React.FC = () => {
         </div>
       </div>
       <div id="resultado">{resultado}</div>
+      <dialog className="dialog_excluir_item">
+        <p>Você quer mesmo excluir este produto?</p>
+        <Form method="DELETE" action='/produto'>
+          <input type="hidden" name="idProd" value={idProdDelInt} />
+          <button type="submit" onClick={() => closeDialog()}>Sim</button>
+          <button onClick={event => handleCancelar(event)}>Não</button>
+        </Form>
+      </dialog>
     </div>
   );
 }

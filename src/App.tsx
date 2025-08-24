@@ -10,6 +10,7 @@ import Produto from './components/Produto';
 import { ProdutoComponent } from './components/ProdutoComponent';
 import { ProdutoLoader, ProdutoAction } from './routes/dataRoute';
 import { EnviaCSV } from './components/EnviaCSV';
+import { ProdutoEdita } from './components/ProdutoEdita';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: 'produto_novo',
         element: <ProdutoNovo />,
+      },
+      {
+        path: 'produto_edita/:id',
+        element: <ProdutoEdita />,
       },
       {
         path: 'envia_csv',
