@@ -73,12 +73,12 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+button:not(:disabled):hover {
     background-color: rgb(240 248 255 / 100%);
     cursor: pointer;
 }
 
-button:active {
+button:not(:disabled):active {
     /* text-shadow: 3px 3px 3px black; */
     box-shadow:
         inset -2px -2px 3px rgb(255 255 255 / 60%),

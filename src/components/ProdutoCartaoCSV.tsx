@@ -4,9 +4,11 @@ interface ItemCardProps {
     item: Produto;
     isSelected: boolean;
     onSelect: (id: string, isSelected: boolean) => void;
+    sendedItemsSucess: boolean;
+    sendedItemsFail: boolean;
 }
 
-export const ProdutoCartaoCSV: React.FC<ItemCardProps> = ({ item, isSelected, onSelect }) => {
+export const ProdutoCartaoCSV: React.FC<ItemCardProps> = ({ item, isSelected, onSelect, sendedItemsSucess, sendedItemsFail }) => {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         onSelect(item.id, event.target.checked);
     };
@@ -21,6 +23,7 @@ export const ProdutoCartaoCSV: React.FC<ItemCardProps> = ({ item, isSelected, on
                 <div className='button_div'>
                     <input
                         className='checkbox'
+                        name='selecionado'
                         type="checkbox"
                         id={`checkbox_${item.id}`}
                         checked={isSelected}
@@ -29,6 +32,14 @@ export const ProdutoCartaoCSV: React.FC<ItemCardProps> = ({ item, isSelected, on
                     <label className='checkbox' htmlFor={`checkbox_${item.id}`}>
                         Selecionado
                     </label>
+                </div>
+                <div>
+                    {sendedItemsSucess && (
+                        <p style={{ color: 'green', fontWeight: 'bold' }}>Produto cadastrado com sucesso!</p>
+                    )}
+                    {sendedItemsFail &&(
+                        <p style={{ color: 'red', fontWeight: 'bold' }}>Falha ao cadastrar produto!</p>
+                    )}
                 </div>
             </div>
         </div>

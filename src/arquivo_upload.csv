@@ -1,4 +1,4 @@
 id,name,description,price,category,pictureUrl
-1,nome do item 1,descrição do item 1,123.4,categoria do item 1,https://example.com/images/imagem1.jpg
-2,nome do item 2,descrição do item 2,567.8,categoria do item 2,https://example.com/images/imagem2.jpg
-3,nome do item 3,descrição do item 3,901.2,categoria do item 3,https://example.com/images/imagem3.jpg
+1,nome do item 1,descrição do item 1,123.4,Moda,https://example.com/images/imagem1.jpg
+8,nome do item 2,descrição do item 2,567.8,Bebidas,https://example.com/images/imagem2.jpg
+3,nome do item 3,descrição do item 3,901.2,Eletronicos,https://example.com/images/imagem3.jpg
