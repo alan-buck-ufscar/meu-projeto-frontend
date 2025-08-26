@@ -49,10 +49,6 @@ export const ProdutoComponent: React.FC = () => {
             <p>{item.category}</p>
             <p>R${item.price}</p>
             <div className='button_div'>
-                {/* <Link to={`/itens/editar/${item.id}`}>
-                  <button>Editar</button>
-                </Link> */}
-
                 <button onClick={event => handleEditar(event, item.id)}>Editar</button>
                 <button className='button_excluir' id='botao_excluir' onClick={event => handleExcluir(event, item.id)}>Excluir</button>
             </div>

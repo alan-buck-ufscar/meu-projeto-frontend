@@ -6,7 +6,7 @@ function Header () {
       <>
         <div className="container">
           <header>
-            <h1>Aula 3</h1>
+            <h1>Projeto de Disciplina</h1>
           </header>
           <div className="content">
             <aside>
