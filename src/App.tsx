@@ -1,34 +1,65 @@
-import React from 'react';
-/*import logo from './logo.svg';*/
 import './App.css';
-import { AbreJSON } from './arquivo_json_abre';
+import Header from './components/Header';
+import { createBrowserRouter, RouterProvider } from 'react-router';
+import "./css/styles.css";
+import Home from './components/Home';
+import Sobre from './components/Sobre';
+import RotaInvalida from './components/RotaInvalida';
+import { ProdutoNovo } from './components/ProdutoNovo';
+import Produto from './components/Produto';
+import { ProdutoComponent } from './components/ProdutoComponent';
+import { ProdutoLoader, ProdutoAction } from './routes/dataRoute';
+import { EnviaCSV } from './components/EnviaCSV';
+import { ProdutoEdita } from './components/ProdutoEdita';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Header />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: 'sobre',
+        element: <Sobre />,
+      },
+      {
+        path: 'produto_antigo',
+        element: <Produto />,
+      },
+      {
+        path: 'produto',
+        element: <ProdutoComponent />,
+        loader: ProdutoLoader,
+        action: ProdutoAction,
+      },
+      {
+        path: 'produto_novo',
+        element: <ProdutoNovo />,
+      },
+      {
+        path: 'produto_edita/:id',
+        element: <ProdutoEdita />,
+      },
+      {
+        path: 'envia_csv',
+        element: <EnviaCSV />,
+      },
+      {
+        path: '*',
+        element: <RotaInvalida />,
+      }
+    ],
+  },
+]);
+
 
 function App() {
+
   return (
-    <div>
-      <header>
-        <AbreJSON/>
-      </header>
-    </div>
-    /*
-    <div className="App">
-      <header className="App-header">
-        <AbreJSON/>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-    */
+    <RouterProvider router={router} />
   );
 }
 
